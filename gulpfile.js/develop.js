@@ -25,8 +25,12 @@ const build = require('./build.js');
 const {samplesBuilder} = require('@lib/build/samplesBuilder');
 const {sh} = require('@lib/utils/sh.js');
 const {PAGES_SRC} = require('@lib/utils/project').paths;
+const {bootstrapOrphans} = require('@lib/bootstrap-orphans');
 
 function bootstrap(done) {
+  // First bootstrap orphan files, then run other bootstrap tasks
+  bootstrapOrphans();
+
   gulp.parallel(
     build.buildBoilerplate,
     build.buildPlayground,
