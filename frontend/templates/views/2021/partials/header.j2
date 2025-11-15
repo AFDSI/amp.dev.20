@@ -89,6 +89,17 @@ to provide its state to other components #}
     {% include '/views/2021/partials/language-selector.j2' %}
     {% endif %}
 
+    <div class="ap-search-trigger"
+         id="searchTriggerOpen"
+         on="tap:searchLightbox.open"
+         role="button"
+         tabindex="0">
+      <div class="ap-icon ap-search-trigger-icon">
+        {% do doc.icons.useIcon('/icons/magnifier.svg') %}
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#magnifier"></use></svg>
+      </div>
+    </div>
+
     <button class="ap-header-burger"
         on="tap:AMP.setState({mainmenuopen: !mainmenuopen, noScrollState: !noScrollState})"
         [class]="'ap-header-burger ' + (mainmenuopen ? '--mainmenuopen ' : '')"
