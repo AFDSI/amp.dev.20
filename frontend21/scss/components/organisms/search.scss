@@ -6,15 +6,7 @@
 
 */
 
-@import '../../../../frontend/scss/_extends.scss';
-@import '../../../../frontend/scss/_functions.scss';
-@import '../../../../frontend/scss/_mixins.scss';
-@import '../../../../frontend/scss/_variables.scss';
-
-@import '../../../../frontend/scss/components/atoms/_text.scss';
-@import '../../../../frontend/scss/components/atoms/_headline.scss';
-@import '../../../../frontend/scss/components/atoms/_color.scss';
-@import '../../../../frontend/scss/components/atoms/_button.scss';
+// Base imports are already included in amp-dev.scss, so we don't need to re-import them
 
 .#{organism('search')} {
   z-index: 9999;
