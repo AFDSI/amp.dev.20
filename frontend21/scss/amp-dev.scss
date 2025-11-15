@@ -2,9 +2,9 @@
 @import '../../frontend/scss/_mixins.scss';
 @import '../../frontend/scss/components/atoms/_icon.scss';
 @import '../../frontend/scss/components/atoms/_color.scss';
-@import '../../frontend/scss/components/atoms/_text.scss';
-@import '../../frontend/scss/components/atoms/_headline.scss';
-@import '../../frontend/scss/components/atoms/_button.scss';
+@import 'components/atoms/_text.scss';
+@import 'components/atoms/_headline.scss';
+@import 'components/atoms/_button.scss';
 
 @import 'variables.scss';
 @import 'functions.scss';
