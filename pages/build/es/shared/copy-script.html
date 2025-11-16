@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+  <meta name="robot" content="noindex,nofollow">
+  <style>
+    .ap-a-ico{display:flex;font-size:initial;box-sizing:initial;justify-content:center;width:1em;height:1em}
+    html, body { background: none transparent; width: 24px; height: 24px; overflow: hidden; }
+    body { margin: 0; cursor: pointer; transition: transform .3s; }
+    svg { fill: #005af0; }
+    textarea { opacity: 0; pointer-events: none; }
+    .copy-script-icon--default, .copy-script-icon--success { position: absolute; top: 3px; transition: transform .3s; }
+    .copy-script-icon--success { opacity: 0; }
+    .success { transform: translate3d(0, 2px, 0); }
+    .success .copy-script-icon--default { opacity: 0; transform: scale3d(0, 0.3, 0); }
+    .success .copy-script-icon--success { opacity: 1; }
+  </style>
+</head>
+<body>
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <symbol id="checkmark" viewBox="0 0 100 100">
+  <path d="M88.738 21.999a3 3 0 00-1.781.812L34.926 70.968l-21.969-19.22a3.002 3.002 0 10-3.938 4.532l24 21a3 3 0 004-.062l54-50A3 3 0 0088.74 22z"/>
+</symbol><symbol id="clipboard" viewBox="0 0 255 255">
+  <path d="M189.7 32.5h-13V32A23.8 23.8 0 00153 8.2h-50.8A23.8 23.8 0 0078.3 32v.5h-13a25.8 25.8 0 00-25.8 25.8V221a25.8 25.8 0 0025.8 25.8h124.4a25.8 25.8 0 0025.8-25.8V58.3a25.8 25.8 0 00-25.8-25.8zM92.3 32a9.8 9.8 0 019.8-9.8h50.8a9.8 9.8 0 019.8 9.8v16.5H92.3zm109.2 189a11.8 11.8 0 01-11.8 11.8H65.3A11.8 11.8 0 0153.5 221V58.3a11.8 11.8 0 0111.8-11.8h13v9a7 7 0 007 7h84.5a7 7 0 007-7v-9h13a11.8 11.8 0 0111.7 11.8z"/>
+</symbol>
+    </defs>
+  </svg>
+  <div class="ap-a-ico copy-script-icon--default">
+    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clipboard"></use></svg>
+  </div>
+  <div class="ap-a-ico copy-script-icon--success">
+    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#checkmark"></use></svg>
+  </div>
+  <textarea id="script-tag"></textarea>
+  <script>
+    const animationDuration = 1200;
+    const scriptTag = document.getElementById('script-tag');
+    const stringToCopy = decodeURIComponent(window.location.hash.substr(1));
+
+    scriptTag.value = stringToCopy;
+
+    document.addEventListener('click', () => {
+      scriptTag.select();
+      scriptTag.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+
+      document.body.classList.add('success');
+      setTimeout(function() {
+        document.body.classList.remove('success');
+      }, animationDuration);
+    });
+  </script>
+</body>
+</html>

@@ -115,5 +115,18 @@
       </div>
     </div>
     {% endif %}
+
+    {% do doc.icons.useIcon('/icons/magnifier.svg') %}
+
+    <div id="searchTriggerOpen"
+         class="ap-m-search-trigger"
+         on="tap:searchLightbox"
+         role="button"
+         tabindex="0">
+      <div class="ap-a-ico ap-m-search-trigger-icon">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#magnifier"></use></svg>
+      </div>
+    </div>
+
   </div>
 </header>
