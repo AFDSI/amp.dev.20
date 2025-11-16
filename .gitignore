@@ -58,3 +58,4 @@ packager/certs/*pem.enc
 
 # Local Netlify folder
 .netlify
+pages/build/
