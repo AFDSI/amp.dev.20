@@ -27,9 +27,10 @@ const PAGE_SIZE = 10;
 const MAX_PAGE = 10;
 
 const CSE_BASE_URL = 'https://www.googleapis.com/customsearch/v1';
-const CSE_ID = '014077439351665726204:s4tidjx0agu';
 let API_KEY = undefined;
+let CSE_ID = undefined;
 
+// Load API key from environment
 credentials
   .get('GOOGLE_CSE_API_KEY')
   .then((key) => {
@@ -37,15 +38,28 @@ credentials
   })
   .catch((err) => {
     log.warn(
-      'Missing Google Custom Search key, site search will not be available!',
+      'Missing Google Custom Search API key, site search will not be available!',
+      err.message ? err.message : err
+    );
+  });
+
+// Load CSE ID from environment
+credentials
+  .get('GOOGLE_CSE_ID')
+  .then((id) => {
+    CSE_ID = id;
+  })
+  .catch((err) => {
+    log.warn(
+      'Missing Google Custom Search Engine ID, site search will not be available!',
       err.message ? err.message : err
     );
   });
 
 async function search(query, locale, page, options = {}) {
-  if (!API_KEY) {
+  if (!API_KEY || !CSE_ID) {
     throw Error(
-      'Custom search api key not initialized! Check log for errors on startup.'
+      'Custom search credentials not initialized! Check log for errors on startup.'
     );
   }
 
