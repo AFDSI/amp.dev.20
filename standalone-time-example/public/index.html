@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standalone Time API Example</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .time-display {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f0f0f0;
+      border-radius: 8px;
+      text-align: center;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+    .status {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+    }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <h1>Standalone Time API Example</h1>
+
+  <p>This is an isolated instance demonstrating Express + API endpoint pattern.</p>
+
+  <h2>Current Time from API</h2>
+  <div class="time-display" id="time">--:--:--</div>
+
+  <button onclick="fetchTime()">Fetch Time</button>
+  <button onclick="startPolling()">Start Polling</button>
+  <button onclick="stopPolling()">Stop Polling</button>
+
+  <div id="status" class="status" style="display: none;"></div>
+
+  <h2>API Details</h2>
+  <ul>
+    <li><strong>Endpoint:</strong> <code>/api/time</code></li>
+    <li><strong>Method:</strong> GET</li>
+    <li><strong>Response:</strong> <code>{"time": "3:45:23 PM"}</code></li>
+  </ul>
+
+  <script>
+    let pollingInterval = null;
+
+    async function fetchTime() {
+      const statusEl = document.getElementById('status');
+      const timeEl = document.getElementById('time');
+
+      try {
+        const response = await fetch('/api/time');
+        const data = await response.json();
+
+        timeEl.textContent = data.time;
+        statusEl.textContent = 'Successfully fetched time from API';
+        statusEl.className = 'status success';
+        statusEl.style.display = 'block';
+      } catch (error) {
+        statusEl.textContent = `Error: ${error.message}`;
+        statusEl.className = 'status error';
+        statusEl.style.display = 'block';
+      }
+    }
+
+    function startPolling() {
+      if (pollingInterval) return;
+
+      fetchTime(); // Fetch immediately
+      pollingInterval = setInterval(fetchTime, 1000);
+
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = 'Polling started (every 1 second)';
+      statusEl.className = 'status success';
+      statusEl.style.display = 'block';
+    }
+
+    function stopPolling() {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+
+        const statusEl = document.getElementById('status');
+        statusEl.textContent = 'Polling stopped';
+        statusEl.className = 'status success';
+        statusEl.style.display = 'block';
+      }
+    }
+
+    // Fetch time on page load
+    fetchTime();
+  </script>
+</body>
+</html>
