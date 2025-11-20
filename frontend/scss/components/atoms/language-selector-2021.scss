@@ -31,6 +31,13 @@
     font-family: 'Poppins', system;
     font-size: 16px;
     font-weight: bold;
+    border: none;
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    color: inherit;
   }
 
   .mainmenuopen & {
