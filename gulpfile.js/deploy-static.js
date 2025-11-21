@@ -32,38 +32,21 @@ const DEFAULT_DEPLOY_ENVIRONMENT = 'Staging';
 const SITES = {
   'Staging': [
     {
-      name: 'staging-amp-dev.netlify.app',
-      id: '75115d1b-a53a-4e0c-ac21-93930d604d0b',
+      name: 'lighthearted-genie.netlify.app',
+      id: '99d1e49c-fad5-472c-8b58-006bfb9c6941',
       dir: PAGES_DEST,
-    },
-    {
-      name: 'playground-staging-amp-dev.netlify.app',
-      id: 'a9f7ee74-0f49-49ff-9c2d-5cac85df3dc8',
-      dir: `${DIST}/playground`,
-    },
-    {
-      name: 'preview-staging-amp-dev.netlify.app',
-      id: '8ade0d74-9b2c-4e8e-8d85-73e198208fba',
-      dir: `${DIST}/examples`,
-    },
-  ],
-  'Production': [
-    {
-      name: 'amp.dev',
-      id: 'e571c70e-d23f-4cbf-ac4e-802bb08e5261',
-      dir: PAGES_DEST,
-    },
-    {
-      name: 'playground.amp.dev',
-      id: 'acead270-9404-4dde-81e4-aec0e6884869',
-      dir: `${DIST}/playground`,
-    },
-    {
-      name: 'preview.amp.dev',
-      id: 'caf28d42-024a-4efb-b266-b00cf10847a3',
-      dir: `${DIST}/examples`,
-    },
-  ],
+    }
+    // {
+    //   name: 'playground-staging-amp-dev.netlify.app',
+    //   id: 'a9f7ee74-0f49-49ff-9c2d-5cac85df3dc8',
+    //   dir: `${DIST}/playground`,
+    // },
+    // {
+    //   name: 'preview-staging-amp-dev.netlify.app',
+    //   id: '8ade0d74-9b2c-4e8e-8d85-73e198208fba',
+    //   dir: `${DIST}/examples`,
+    // },
+  ]
 };
 
 async function staticDeploy() {
