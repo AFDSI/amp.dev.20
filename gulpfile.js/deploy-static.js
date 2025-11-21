@@ -18,8 +18,10 @@
 
 const {sh} = require('@lib/utils/sh.js');
 const {cyan, red} = require('ansi-colors');
-const {DIST, PAGES_DEST} = require('@lib/utils/project').paths;
-const {NETLIFY_DEPLOY_TOKEN, DEPLOY_ENVIRONMENT} = process.env;
+// const {DIST, PAGES_DEST} = require('@lib/utils/project').paths;
+const {PAGES_DEST} = require('@lib/utils/project').paths;
+// const {NETLIFY_DEPLOY_TOKEN, DEPLOY_ENVIRONMENT} = process.env;
+const {NETLIFY_DEPLOY_TOKEN} = process.env;
 
 /** @typedef {'Staging' | 'Production'} DeploymentEnvironmentsDef */
 /** @typedef {{name: string, id: string, dir: string}} DeploymentSiteDef */
@@ -35,7 +37,7 @@ const SITES = {
       name: 'lighthearted-genie.netlify.app',
       id: '99d1e49c-fad5-472c-8b58-006bfb9c6941',
       dir: PAGES_DEST,
-    }
+    },
     // {
     //   name: 'playground-staging-amp-dev.netlify.app',
     //   id: 'a9f7ee74-0f49-49ff-9c2d-5cac85df3dc8',
@@ -46,11 +48,12 @@ const SITES = {
     //   id: '8ade0d74-9b2c-4e8e-8d85-73e198208fba',
     //   dir: `${DIST}/examples`,
     // },
-  ]
+  ],
 };
 
 async function staticDeploy() {
-  const deployEnvironment = DEPLOY_ENVIRONMENT ?? DEFAULT_DEPLOY_ENVIRONMENT;
+  // const deployEnvironment = DEPLOY_ENVIRONMENT ?? DEFAULT_DEPLOY_ENVIRONMENT;
+  const deployEnvironment = DEFAULT_DEPLOY_ENVIRONMENT;
   if (!(deployEnvironment in SITES)) {
     console.error(
       red('Deploy environment'),
