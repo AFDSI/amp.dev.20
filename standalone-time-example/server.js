@@ -21,7 +21,7 @@ app.get('/api/time', (request, response) => {
   response.set({
     'Cache-Control': 'private, no-cache, no-store, must-revalidate',
     'Pragma': 'no-cache',
-    'Expires': '0'
+    'Expires': '0',
   });
 
   response.json({
