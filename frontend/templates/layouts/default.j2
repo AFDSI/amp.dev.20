@@ -111,6 +111,20 @@
     {# Load URL params into AMP state for client-side filtering on static pages #}
     {% block filter_params %}
     {% do doc.amp_dependencies.add('amp-script') %}
+    {% do doc.amp_dependencies.add('amp-bind') %}
+
+    {# Initialize state variables with defaults #}
+    <amp-state id="category">
+      <script type="application/json">""</script>
+    </amp-state>
+    <amp-state id="format">
+      <script type="application/json">"websites"</script>
+    </amp-state>
+    <amp-state id="level">
+      <script type="application/json">"beginner"</script>
+    </amp-state>
+
+    {# Update state from URL parameters #}
     <amp-script layout="fixed-height" height="0" script="filter-params-script">
     </amp-script>
     <script id="filter-params-script" type="text/plain" target="amp-script">
