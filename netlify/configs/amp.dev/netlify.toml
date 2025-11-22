@@ -68,6 +68,11 @@ Content-Type="application/json"
   status = 301
 
 [[redirects]]
+  from = "/api/filter-state"
+  to = "/.netlify/functions/filter-state"
+  status = 200
+
+[[redirects]]
   from = "/documentation/examples/api/products"
   to = "/.netlify/functions/examples_api_products"
   status = 200
