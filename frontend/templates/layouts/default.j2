@@ -110,20 +110,18 @@
     {# Load URL params into AMP state for client-side filtering on static pages #}
     {% block filter_params %}
     {% do doc.amp_dependencies.add('amp-script') %}
-    <amp-script layout="container" script="filter-params-script" nodom>
+    <amp-script layout="fixed-height" height="0" script="filter-params-script">
     </amp-script>
     <script id="filter-params-script" type="text/plain" target="amp-script">
-      (function() {
-        var params = new URLSearchParams(window.location.search);
-        var category = (params.get('category') || '').toLowerCase().trim();
-        var format = (params.get('format') || 'websites').toLowerCase().trim();
-        var level = (params.get('level') || 'beginner').toLowerCase().trim();
-        AMP.setState({
-          category: category,
-          format: format,
-          level: level
-        });
-      })();
+      const params = new URLSearchParams(window.location.search);
+      const category = (params.get('category') || '').toLowerCase().trim();
+      const format = (params.get('format') || 'websites').toLowerCase().trim();
+      const level = (params.get('level') || 'beginner').toLowerCase().trim();
+      AMP.setState({
+        category: category,
+        format: format,
+        level: level
+      });
     </script>
     {% endblock %}
 
