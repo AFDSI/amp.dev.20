@@ -3,37 +3,37 @@
   "hosts": {
     "pages": {
       "scheme": "https",
-      "host": "lighthearted-genie.netlify.app",
+      "host": "benetta.netlify.app",
       "port": ""
     },
     "api": {
       "scheme": "https",
-      "host": "api-dot-lighthearted-genie.netlify.app",
+      "host": "api-dot-benetta.netlify.app",
       "port": ""
     },
     "platform": {
       "scheme": "https",
-      "host": "lighthearted-genie.netlify.app",
+      "host": "benetta.netlify.app",
       "port": ""
     },
     "playground": {
       "scheme": "https",
-      "host": "playground-lighthearted-genie.netlify.app",
+      "host": "playground-benetta.netlify.app",
       "port": ""
     },
     "preview": {
       "scheme": "https",
-      "host": "preview-lighthearted-genie.netlify.app",
+      "host": "preview-benetta.netlify.app",
       "port": ""
     },
     "go": {
       "scheme": "https",
-      "host": "go-lighthearted-genie.netlify.app",
+      "host": "go-benetta.netlify.app",
       "port": ""
     },
     "log": {
       "scheme": "https",
-      "host": "log-lighthearted-genie.netlify.app",
+      "host": "log-benetta.netlify.app",
       "port": ""
     }
   }

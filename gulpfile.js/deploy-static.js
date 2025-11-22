@@ -34,8 +34,8 @@ const DEFAULT_DEPLOY_ENVIRONMENT = 'Staging';
 const SITES = {
   'Staging': [
     {
-      name: 'lighthearted-genie.netlify.app',
-      id: '99d1e49c-fad5-472c-8b58-006bfb9c6941',
+      name: 'benetta.netlify.app',
+      id: 'f1b7e5a9-b9dc-481b-b183-24ba61ba6244',
       dir: PAGES_DEST,
     },
     // {
