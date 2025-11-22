@@ -109,7 +109,7 @@
 
     {# Load URL params into AMP state for client-side filtering on static pages #}
     {% block filter_params %}
-    {% do doc.amp_dependencies.addComponent('amp-script') %}
+    {% do doc.amp_dependencies.add('amp-script') %}
     <amp-script layout="container" script="filter-params-script" nodom>
     </amp-script>
     <script id="filter-params-script" type="text/plain" target="amp-script">
