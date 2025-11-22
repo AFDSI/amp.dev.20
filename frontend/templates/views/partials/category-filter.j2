@@ -3,7 +3,7 @@
 
 <div class="ap-o-filter-bubbles-list">
   <a class="ap-a-pill"
-     [class]="'ap-a-pill ' + (!{{ filter_categories }}.includes(category) ? 'filtered' : '')"
+     [class]="'ap-a-pill ' + (!{{ filter_categories|replace('"', \"'\") }}.includes(category) ? 'filtered' : '')"
      href="{{ doc.url.path }}#filter"
      name="all">
     {{ _('All') }}
@@ -18,8 +18,8 @@
   {% set category = category.split('.')[1] if category and category.split('.')|length == 2 else category %}
 
   <a class="ap-a-pill"
-     [class]="'ap-a-pill ' + ({{ filter_categories }}.includes(category) && category == '{{ category|slug }}' ? 'filtered' : '')"
-     [hidden]="!({{ scope.categoryFormats|unique|list|tojson }}).includes(format)"
+     [class]="'ap-a-pill ' + ({{ filter_categories|replace('"', \"'\") }}.includes(category) && category == '{{ category|slug }}' ? 'filtered' : '')"
+     [hidden]="!({{ scope.categoryFormats|unique|list|tojson|replace('"', \"'\") }}).includes(format)"
      href="{{ doc.url.path }}?category={{category|slug}}#filter"
      name="{{ _(category) }}">
     {{ _(category) }}
