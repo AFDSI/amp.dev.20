@@ -107,6 +107,26 @@
     </svg>
     {% endblock %}
 
+    {# Load URL params into AMP state for client-side filtering on static pages #}
+    {% block filter_params %}
+    {% do doc.amp_dependencies.addComponent('amp-script') %}
+    <amp-script layout="container" script="filter-params-script" nodom>
+    </amp-script>
+    <script id="filter-params-script" type="text/plain" target="amp-script">
+      (function() {
+        var params = new URLSearchParams(window.location.search);
+        var category = (params.get('category') || '').toLowerCase().trim();
+        var format = (params.get('format') || 'websites').toLowerCase().trim();
+        var level = (params.get('level') || 'beginner').toLowerCase().trim();
+        AMP.setState({
+          category: category,
+          format: format,
+          level: level
+        });
+      })();
+    </script>
+    {% endblock %}
+
     {% block header %}
     {% include 'views/partials/header.j2' %}
     {% include 'views/partials/burger-menu.j2' %}
