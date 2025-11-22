@@ -94,6 +94,10 @@
     </style>
     <link rel="manifest" href="/manifest.json">
 
+    {# Add amp-script and amp-bind for client-side URL param filtering #}
+    {% do doc.amp_dependencies.add('amp-script') %}
+    {% do doc.amp_dependencies.add('amp-bind') %}
+
     {{ doc.amp_dependencies.emit() }}
   </head>
   {# The body tag is a block solely for the purpose to be overridable by the samples. #}
@@ -110,18 +114,21 @@
 
     {# Load URL params into AMP state for client-side filtering on static pages #}
     {% block filter_params %}
-    {% do doc.amp_dependencies.add('amp-script') %}
-    {% do doc.amp_dependencies.add('amp-bind') %}
-
     {# Initialize state variables with defaults #}
     <amp-state id="category">
-      <script type="application/json">""</script>
+      <script type="application/json">
+        ""
+      </script>
     </amp-state>
     <amp-state id="format">
-      <script type="application/json">"websites"</script>
+      <script type="application/json">
+        "websites"
+      </script>
     </amp-state>
     <amp-state id="level">
-      <script type="application/json">"beginner"</script>
+      <script type="application/json">
+        "beginner"
+      </script>
     </amp-state>
 
     {# Update state from URL parameters #}
