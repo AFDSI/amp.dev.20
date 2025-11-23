@@ -2,12 +2,11 @@
 {% do doc.styles.addCssFile('css/components/atoms/pill.css') %}
 
 <div class="ap-o-filter-bubbles-list">
-  <a class="ap-a-pill"
-     [class]="'ap-a-pill ' + (category == '' ? 'filtered' : '')"
-     href="{{ doc.url.path }}#filter"
-     name="all">
+  <button class="ap-a-pill filtered"
+     [class]="category == '' ? 'ap-a-pill filtered' : 'ap-a-pill'"
+     on="tap:AMP.setState({ category: '' })">
     {{ _('All') }}
-  </a>
+  </button>
   {% for category, components in categories %}
   {% set scope = namespace(categoryFormats = []) %}
     {% for component in components %}
@@ -17,13 +16,12 @@
   {% if category %}
   {% set category = category.split('.')[1] if category and category.split('.')|length == 2 else category %}
 
-  <a class="ap-a-pill"
-     [class]="'ap-a-pill ' + (category == '{{ category|slug }}' ? 'filtered' : '')"
+  <button class="ap-a-pill"
+     [class]="category == '{{ category|slug }}' ? 'ap-a-pill filtered' : 'ap-a-pill'"
      [hidden]="!({% for fmt in scope.categoryFormats|unique %}format == '{{ fmt|trim }}'{% if not loop.last %} || {% endif %}{% endfor %})"
-     href="{{ doc.url.path }}?category={{category|slug}}#filter"
-     name="{{ _(category) }}">
+     on="tap:AMP.setState({ category: '{{ category|slug }}' })">
     {{ _(category) }}
-  </a>
+  </button>
   {% endif %}
   {% endfor %}
 </div>
