@@ -19,7 +19,7 @@
 
   <a class="ap-a-pill"
      [class]="'ap-a-pill ' + ([{% for cat, _ in categories %}{% set cat_name = cat.split('.')[1] if cat and cat.split('.')|length == 2 else cat %}'{{ cat_name|slug }}'{% if not loop.last %}, {% endif %}{% endfor %}].includes(category) && category == '{{ category|slug }}' ? 'filtered' : '')"
-     [hidden]="!({{ scope.categoryFormats|unique|list|tojson|replace('"', "'") }}).includes(format)"
+     [hidden]="!([{% for fmt in scope.categoryFormats|unique %}'{{ fmt|trim }}'{% if not loop.last %}, {% endif %}{% endfor %}]).includes(format)"
      href="{{ doc.url.path }}?category={{category|slug}}#filter"
      name="{{ _(category) }}">
     {{ _(category) }}
