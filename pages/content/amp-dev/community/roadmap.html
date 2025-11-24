@@ -46,17 +46,19 @@ roadmap: !g.json /shared/data/roadmap.json
 
     <h2 class="ap-t-roadmap-filter-headline">{{ _('Select working groups') }}</h2>
     <div class="ap-t-roadmap-filter-list">
-      <a class="ap-a-pill reset [% if not category %]active[% endif %]"
-          href="{{ doc.url.path }}#status-updates"
+      <button class="ap-a-pill reset"
+          [class]="category == '' ? 'ap-a-pill reset active' : 'ap-a-pill reset'"
+          on="tap:AMP.setState({ category: '' })"
           style="color: #005AF0;">
         <span class="ap-a-pill-text">{{ _('All') }}</span>
-      </a>
+      </button>
       {% for group in doc.roadmap.working_groups %}
-      <a class="ap-a-pill {{ group.slug }} [% if category == '{{ group.slug }}' %]active[% endif %]"
-          href="{{ doc.url.path }}?category={{ group.slug }}#status-updates"
+      <button class="ap-a-pill {{ group.slug }}"
+          [class]="category == '{{ group.slug }}' ? 'ap-a-pill {{ group.slug }} active' : 'ap-a-pill {{ group.slug }}'"
+          on="tap:AMP.setState({ category: '{{ group.slug }}' })"
           style="color: {{ group.color }}">
         <span class="ap-a-pill-text">{{ group.title }}</span>
-      </a>
+      </button>
       {% endfor %}
     </div>
   </section>
@@ -65,9 +67,8 @@ roadmap: !g.json /shared/data/roadmap.json
     <div class="ap-t-roadmap-navigation">
       <div class="ap-t-roadmap-navigation-list">
         {% for quarter in doc.roadmap.quarters.ordered %}
-
-        [% set roadmap_quarter = {{ doc.roadmap.quarters.working_groups[quarter]|tojson }} %]
-        [% if not category or roadmap_quarter.includes(category) %]
+        {% set quarter_wgs = doc.roadmap.quarters.working_groups[quarter] %}
+        <div [hidden]="category != '' && !({% for wg in quarter_wgs %}category == '{{ wg }}'{% if not loop.last %} || {% endif %}{% endfor %})">
         <amp-animation id="anim-{{ quarter|slug }}" layout="nodisplay">
           <script type="application/json">
             {
@@ -113,7 +114,7 @@ roadmap: !g.json /shared/data/roadmap.json
               id="nav-item-timeline-{{ quarter|slug }}">
           </span>
         </button>
-        [% endif %]
+        </div>
 
         {% endfor %}
       </div>
@@ -121,17 +122,17 @@ roadmap: !g.json /shared/data/roadmap.json
 
     <div class="ap-t-roadmap-list">
       {% do doc.icons.useIcon('icons/angle-down-solid.svg') %}
-      [% set quarters = {{ doc.roadmap.quarters.working_groups|tojson }} %]
-      [% set currenQuarter = 'undefined' %]
+      {% set current_quarter = namespace(value='') %}
 
       {% for issue in doc.roadmap.issues %}
-      [% if not category or category == '{{ issue.wg_slug }}' %]
       <div class="ap-t-roadmap-list-item"
+          [hidden]="category != '' && category != '{{ issue.wg_slug }}'"
           id="{{ issue.wg_slug }}-{{ issue.number }}">
 
-        [% if currenQuarter != '{{ issue.quarter }}' %]
-        [% if not category or quarters['{{ issue.quarter }}'].includes(category) %]
-        [% set currenQuarter = '{{ issue.quarter }}' %]
+        {% if current_quarter.value != issue.quarter %}
+        {% set current_quarter.value = issue.quarter %}
+        {% set quarter_wgs = doc.roadmap.quarters.working_groups[issue.quarter] %}
+        <div [hidden]="category != '' && !({% for wg in quarter_wgs %}category == '{{ wg }}'{% if not loop.last %} || {% endif %}{% endfor %})">
         <amp-position-observer intersection-ratios=".95"
             target="{{ issue.quarter|slug }}"
             on="enter:anim-{{ issue.quarter|slug }}.start"
@@ -140,8 +141,8 @@ roadmap: !g.json /shared/data/roadmap.json
         <aside class="ap-t-roadmap-list-item-quarter" id="{{ issue.quarter|slug }}">
           <h3>{{ issue.quarter }}</h3>
         </aside>
-        [% endif %]
-        [% endif %]
+        </div>
+        {% endif %}
 
         <aside class="ap-t-roadmap-list-item-scroll-spacer"
             id="scroll-{{ issue.wg_slug }}-{{ issue.number }}">
@@ -182,7 +183,6 @@ roadmap: !g.json /shared/data/roadmap.json
           </div>
         </div>
       </div>
-      [% endif %]
       {% endfor %}
     </div>
   </section>
