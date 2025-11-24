@@ -84,7 +84,7 @@ platform/static
 platform/config/build-info.yaml
 thumbor/static
 frontend/templates/views/partials/pixi/webpack.j2
-_orphans/
+__orphans/
 artifacts/
 
 # ===========================================
