@@ -32,6 +32,16 @@ const MAX_CONCURRENT_OPS = config.options['queue-imports']
   ? 6
   : Number.POSITIVE_INFINITY;
 
+// Rate limiting configuration to avoid GitHub secondary rate limits
+const GITHUB_IMPORT_INTERVAL = parseInt(
+  process.env.GITHUB_IMPORT_INTERVAL || '1000',
+  10
+);
+const GITHUB_IMPORT_INTERVAL_CAP = parseInt(
+  process.env.GITHUB_IMPORT_INTERVAL_CAP || '1',
+  10
+);
+
 const log = new Signale({
   'interactive': false,
   'scope': 'GitHub Importer',
@@ -52,7 +62,11 @@ function checkCredentials() {
 class GitHubImporter {
   constructor() {
     checkCredentials();
-    this._queue = new PQueue({concurrency: MAX_CONCURRENT_OPS});
+    this._queue = new PQueue({
+      concurrency: MAX_CONCURRENT_OPS,
+      interval: GITHUB_IMPORT_INTERVAL,
+      intervalCap: GITHUB_IMPORT_INTERVAL_CAP,
+    });
     this._github = octonode.client(
       CLIENT_TOKEN || {
         'id': CLIENT_ID,
